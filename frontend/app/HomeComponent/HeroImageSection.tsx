@@ -1,5 +1,5 @@
 "use client";
-import HeroImgCard from "../components/HeroImgCard";
+import HeroImgCard from "../components/Banner/HeroImgCard";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";

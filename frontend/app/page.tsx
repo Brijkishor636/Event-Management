@@ -17,7 +17,7 @@ export default function Home() {
           <HeroImageSection/>
           <FeatureSection/>
           <CompetitionSection/>
-          <Fetchdata/>
+          {/* <Fetchdata/> */}
       </div>
       
     </div>

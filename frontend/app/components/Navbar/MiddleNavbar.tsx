@@ -1,5 +1,6 @@
-import { RiArrowDropDownLine } from "react-icons/ri";
+// import { RiArrowDropDownLine } from "react-icons/ri";
 import DropdownMenu from "./Dropdown";
+
 
 export default function MiddleNavbar(){
     return <div className="flex text-sm justify-center items-center text-gray-700">

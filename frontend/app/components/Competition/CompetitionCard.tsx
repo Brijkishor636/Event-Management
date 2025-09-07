@@ -1,113 +1,132 @@
-"use client"
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import Card from "./Card";
+"use client";
+
+import { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
-import comImg1 from "../../../assets/competetion/competition1.webp"
-import comImg2 from "../../../assets/competetion/competition5.webp"
-import comImg3 from "../../../assets/competetion/competition6.webp"
-import comImg4 from "../../../assets/competetion/competition7.webp"
-import logoImg1 from "../../../assets/competetion/competitionLogo.webp"
+import Card from "./Card";
+
+import comImg1 from "../../../assets/competetion/competition1.webp";
+import comImg2 from "../../../assets/competetion/competition5.webp";
+import comImg3 from "../../../assets/competetion/competition6.webp";
+import comImg4 from "../../../assets/competetion/competition10.webp";
+import logoImg1 from "../../../assets/competetion/competitionLogo.webp";
+
+// Dynamic import with SSR disabled
+const Slider = dynamic(() => import("react-slick"), { ssr: false });
+
+type MainCardProps = {
+  title: string;
+  description: string;
+  apiEndpoint?: string;
+};
+
+export default function CompetitionCard({ title, description, apiEndpoint }: MainCardProps) {
+  const [cards, setCards] = useState<any[]>([]);
+
+  const staticCards = [
+    { src: comImg1, logo: logoImg1, title: "INSIGHT X GARP", subtitle: "Narsee Monjee College", views: "7,579", daysLeft: "6 days left" },
+    { src: comImg2, logo: logoImg1, title: "Code Quest", subtitle: "IIT Bombay", views: "4,300", daysLeft: "3 days left" },
+    { src: comImg3, logo: logoImg1, title: "Hackathon 2025", subtitle: "NIT Trichy", views: "9,122", daysLeft: "10 days left" },
+    { src: comImg4, logo: logoImg1, title: "Design Wars", subtitle: "IIIT Delhi", views: "2,511", daysLeft: "1 day left" },
+  ];
+
+  useEffect(() => {
+    if (!apiEndpoint) return setCards(staticCards);
+
+    fetch(apiEndpoint.startsWith("http") ? apiEndpoint : `${window.location.origin}${apiEndpoint}`)
+      .then((res) => res.json())
+      .then((data) => {
+        const list = Array.isArray(data) ? data : data.data || [];
+        setCards(list.length > 0 ? list : staticCards);
+      })
+      .catch(() => setCards(staticCards));
+  }, [apiEndpoint]);
+
+  // Custom arrow components
+  const NextArrow = (props: any) => {
+    const { onClick } = props;
+    return (
+      <button
+        onClick={onClick}
+        className="hidden md:flex absolute top-1/2 -right-8 -translate-y-1/2 z-20
+                   bg-gray-400 hover:bg-gray-500 text-white rounded-full p-2 shadow-lg cursor-pointer"
+      >
+        <FaChevronRight size={20} />
+      </button>
+    );
+  };
+
+  const PrevArrow = (props: any) => {
+    const { onClick } = props;
+    return (
+      <button
+        onClick={onClick}
+        className="hidden md:flex absolute top-1/2 -left-8 -translate-y-1/2 z-20
+                   bg-gray-400 hover:bg-gray-500 text-white rounded-full p-2 shadow-lg cursor-pointer"
+      >
+        <FaChevronLeft size={20} />
+      </button>
+    );
+  };
+
+  const settings = {
+    infinite: true,
+    speed: 600,
+    slidesToShow: Math.min(4, cards.length),
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 4000,
+    arrows: true,
+    dots: true,
+    nextArrow: <NextArrow />,
+    prevArrow: <PrevArrow />,
+    responsive: [
+      { breakpoint: 1280, settings: { slidesToShow: Math.min(3, cards.length), arrows: true, dots:false } },
+      { breakpoint: 768, settings: { slidesToShow: 1, arrows: false , dots: false} },
+    ],
+  };
 
 
-const arrayCard = [
-    <Card src={comImg1} imgLogo={logoImg1}/>,
-    <Card src={comImg2} imgLogo={logoImg1}/>,
-    <Card src={comImg3} imgLogo={logoImg1}/>,
-    <Card src={comImg4} imgLogo={logoImg1}/>,
-    <Card src={comImg1} imgLogo={logoImg1}/>,
-    <Card src={comImg2} imgLogo={logoImg1}/>,
-    <Card src={comImg3} imgLogo={logoImg1}/>,
-    <Card src={comImg4} imgLogo={logoImg1}/>,
-]
+  if (typeof window === "undefined") return null;
 
-export default function CompetitionCard(){
+  return (
+    <div className="cursor-pointer">
+      <div className="lg:px-12 px-8">
+        <div className="text-2xl font-bold text-gray-800 pb-2">{title}</div>
+        <div className="text-sm text-gray-600 pb-6">{description}</div>
+      </div>
 
-   const NextArrow = ({ onClick }: any) => (
-  <button
-    onClick={onClick}
-    className="hidden md:flex absolute top-1/2 -right-12 -translate-y-1/2 
-               z-20 bg-gray-400 hover:bg-gray-500 text-white 
-               rounded-full p-2 shadow-lg transition cursor-pointer"
-    aria-label="Next"
-  >
-    <FaChevronRight size={20} />
-  </button>
-);
-
-const PrevArrow = ({ onClick }: any) => (
-  <button
-    onClick={onClick}
-    className="hidden md:flex absolute top-1/2 -left-12 -translate-y-1/2 
-               z-20 bg-gray-400 hover:bg-gray-500 text-white 
-               rounded-full p-2 shadow-lg transition cursor-pointer"
-    aria-label="Previous"
-  >
-    <FaChevronLeft size={20} />
-  </button>
-);
-
-    
-    const settings = {
-        infinite: true,
-        speed: 600,
-        slidesToShow: 4,
-        slidesToScroll: 1,
-        autoplay: true,
-        autoplaySpeed: 4000,
-        arrows: true,
-        prevArrow: <PrevArrow/>,
-        nextArrow: <NextArrow/>,
-        responsive: [
-            {
-                breakpoint: 1280,
-                settings: {
-                    slidesToShow:3,
-                    centerMode: true,
-                    centerPadding: "0px",
-                    arrows: true,
-                },
-            },
-            {
-                breakpoint: 768,
-                settings: {
-                    arrows: false,
-                },
-            },
-        ],
-    }
-
-    return <div className="cursor-pointer">
-        <div>
-            <div>
-                    <div className="text-2xl font-bold text-gray-800 pb-2 lg:px-12 px-8">
-                        Competitions
-                    </div>
-                <div className="text-sm text-gray-600 pb-6 lg:px-12 px-8">
-                    Explore the Competitions that are creating a buzz among your peers!
-                </div>
-                    </div>
-                <div>
-                <div className="hidden md:block relative lg:px-10 px-6">
-                    <Slider {...settings} className="relative">
-                        {arrayCard.map((card, index)=>(
-                            <div key={index} className="w-full flex justify-center p-2">{card}</div>
-                        ))}
-                    </Slider>
-                </div>
-
-                <div className="md:hidden px-4">
-                  <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory scrollbar-hide px-1 pb-2">
-                    {arrayCard.map((card, index) => (
-                      <div key={index} className="snap-start shrink-0 w-72">
-                        {card}
-                      </div>
-                    ))}
-                  </div>
-                </div>
+      <div className="hidden md:block relative lg:px-10 px-6">
+        <Slider {...settings}>
+          {cards.map((card, index) => (
+            <div key={index} className="w-full flex justify-center p-2">
+              <Card
+                index={index}
+                title={card.job_title || card.title}
+                subtitle={card.job_description || card.subtitle}
+                views={card.job_views || card.views || "1,000"}
+                daysLeft={card.job_posted_at || card.daysLeft}
+              />
             </div>
+          ))}
+        </Slider>
+      </div>
 
+      <div className="md:hidden px-4">
+        <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory scrollbar-hide px-1 pb-2">
+          {cards.map((card, index) => (
+            <div key={index} className="snap-start shrink-0 w-72">
+              <Card
+                index={index}
+                title={card.job_title || card.title}
+                subtitle={card.job_description || card.subtitle}
+                views={card.job_views || card.views || "1,000"}
+                daysLeft={card.job_posted_at || card.daysLeft}
+              />
+            </div>
+          ))}
         </div>
+      </div>
     </div>
+  );
 }

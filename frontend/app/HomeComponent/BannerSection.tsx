@@ -1,5 +1,5 @@
-import { CardComponent } from "../components/Card";
-import MoreCard from "../components/MoreCard";
+import { CardComponent } from "../components/Banner/Card";
+import MoreCard from "../components/Banner/MoreCard";
 
 
 export default function BannerSection() {

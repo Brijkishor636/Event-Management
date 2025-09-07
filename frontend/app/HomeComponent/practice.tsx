@@ -18,10 +18,10 @@ export default function Fetchdata() {
 
   useEffect(() => {
   const fetchData = async () => {
-    const response = await fetch("/api/internships");
+    const response = await fetch("/api/competitions");
     const data = await response.json();
-    console.log("Client received:", data);
-    setInternships(data);
+    console.log("Client received:", data.data);
+    setInternships(data.data);
   };
   fetchData();
 }, []);
@@ -30,8 +30,8 @@ export default function Fetchdata() {
     <div>
       <h1>Internship List:</h1>
       <div>
-        {internships.map((item) => (
-          <div key={item.id} className="border p-2 my-2 rounded">
+        {internships.map((item, id) => (
+          <div key={id} className="border p-2 my-2 rounded">
             <h2>{item.title}</h2>
             <a href={item.url} target="_blank">{item.url}</a>
             <p>Created: {item.date_created}</p>

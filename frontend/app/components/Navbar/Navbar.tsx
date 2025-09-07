@@ -3,7 +3,7 @@ import MiddleNavbar from "./MiddleNavbar"
 import { LuBriefcaseBusiness } from "react-icons/lu";
 import Searchbar from "./Searchbar"
 import Link from "next/link";
-import IconLogin from "./Navbar/iconLogin";
+import IconLogin from "./iconLogin";
 import { useState } from "react";
 
 export const Navbar = () =>{
