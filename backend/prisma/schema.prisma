@@ -19,6 +19,12 @@ model User{
   password String 
   name String?
   mobile String?
+  role userRole   @default(STUDENT)
+  applications InternshipApplication[]
+
+  CompetitionApplication CompetitionApplication[]
+
+  JobApplication JobApplication[]
 }
 
 model Internship{
@@ -28,4 +34,111 @@ model Internship{
   description String
   createdOn  DateTime @default(now())
   endsOn     DateTime?
+  company        Company  @relation(fields: [companyId], references: [id])
+  companyId      Int
+  applications  InternshipApplication[]
 }
+
+model Company {
+  id          Int        @id @default(autoincrement())
+  name        String
+  companyusername    String         @unique
+  password    String        
+  description String?        @db.Text
+  website     String?
+  logoUrl     String?
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+  role        companyRole    @default(COMPANY)
+
+  internships Internship[]
+
+  Competition Competition[]
+
+  Job Job[]
+}
+
+model InternshipApplication {
+  id            Int         @id @default(autoincrement())
+  user          User        @relation(fields: [userId], references: [id])
+  userId        Int
+  internship    Internship  @relation(fields: [internshipId], references: [id])
+  internshipId  Int
+  resumeUrl     String
+  status        ApplicationStatus @default(PENDING)
+  appliedAt     DateTime    @default(now())
+}
+
+
+model Competition {
+  id            Int        @id @default(autoincrement())
+  title         String
+  subtitle      String?
+  description   String      @db.Text
+  createdOn     DateTime    @default(now())
+  endsOn        DateTime?
+  company       Company     @relation(fields: [companyId], references: [id])
+  companyId     Int
+  applications  CompetitionApplication[]
+}
+
+model CompetitionApplication {
+  id              Int          @id @default(autoincrement())
+  user            User         @relation(fields: [userId], references: [id])
+  userId          Int
+  competition     Competition  @relation(fields: [competitionId], references: [id])
+  competitionId   Int
+  status          ApplicationStatus @default(PENDING)
+  appliedAt       DateTime     @default(now())
+}
+
+model Job {
+  id          Int        @id @default(autoincrement())
+  title       String
+  description String      @db.Text
+  location    String?
+  type        JobType     @default(FULL_TIME)  // full-time, internship, contract
+  salary      String?     // can be "5 LPA" or "₹40,000/month"
+  createdOn   DateTime    @default(now())
+  endsOn      DateTime?
+  company     Company     @relation(fields: [companyId], references: [id])
+  companyId   Int
+  applications JobApplication[]
+}
+
+model JobApplication {
+  id          Int      @id @default(autoincrement())
+  user        User     @relation(fields: [userId], references: [id])
+  userId      Int
+  job         Job      @relation(fields: [jobId], references: [id])
+  jobId       Int
+  resumeUrl   String
+  status      ApplicationStatus @default(PENDING)
+  appliedAt   DateTime @default(now())
+}
+
+enum JobType {
+  FULL_TIME
+  PART_TIME
+  INTERNSHIP
+  CONTRACT
+  FREELANCE
+}
+
+enum userRole {
+  STUDENT
+  ADMIN
+  COMPANY
+}
+
+enum ApplicationStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+}
+
+enum companyRole {
+  COMPANY
+}
+
+

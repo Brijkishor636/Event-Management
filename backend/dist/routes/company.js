@@ -1,0 +1,18 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = __importDefault(require("express"));
+const roleMiddleware_1 = require("../middlewares/roleMiddleware");
+const client_1 = require("@prisma/client");
+const authMiddleware_1 = require("../middlewares/authMiddleware");
+const companyController_1 = require("../controllers/companyController");
+const companyRouter = express_1.default.Router();
+const prisma = new client_1.PrismaClient();
+companyRouter.post("/signup", companyController_1.companySignup);
+companyRouter.post("/signin", companyController_1.companySignin);
+companyRouter.post("/createinternship", authMiddleware_1.verifyToken, (0, roleMiddleware_1.authorizeRole)("COMPANY"), companyController_1.createinternship);
+companyRouter.post("/createcompetition", authMiddleware_1.verifyToken, (0, roleMiddleware_1.authorizeRole)("COMPANY"), companyController_1.createCompetition);
+companyRouter.post("/createjobs", authMiddleware_1.verifyToken, (0, roleMiddleware_1.authorizeRole)("COMPANY"), companyController_1.createJob);
+exports.default = companyRouter;
