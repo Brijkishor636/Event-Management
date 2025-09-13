@@ -277,3 +277,73 @@ export const createJob = async (req: Request, res: Response) =>{
     })
   }
 }
+
+
+export const getInternships = async (req: Request, res: Response) =>{
+  try{
+      const companyId = req.user.companyId;
+      const internship = await prisma.internship.findMany({
+        where: {
+          companyId: companyId
+        }
+      })
+      if(!internship){
+        return res.status(500).json({
+          msg: "db connection error!!"
+        })
+      }
+      return res.status(200).json({internship})
+  }
+  catch(e){
+    console.log(e);
+    return res.status(500).json({
+      msg: "Internal server error!!"
+    })
+  }
+}
+
+export const getCompetitions = async (req: Request, res: Response) =>{
+  try{
+      const companyId = req.user.companyId;
+      const competition = await prisma.competition.findMany({
+        where: {
+          companyId: companyId
+        }
+      })
+      if(!competition){
+        return res.status(500).json({
+          msg: "db connection error!!"
+        })
+      }
+      return res.status(200).json({competition})
+  }
+  catch(e){
+    console.log(e);
+    return res.status(500).json({
+      msg: "Internal server error!!"
+    })
+  }
+}
+
+export const getJobs = async (req: Request, res: Response) =>{
+  try{
+      const companyId = req.user.companyId;
+      const job = await prisma.job.findMany({
+        where: {
+          companyId: companyId
+        }
+      })
+      if(!job){
+        return res.status(500).json({
+          msg: "db connection error!!"
+        })
+      }
+      return res.status(200).json({job})
+  }
+  catch(e){
+    console.log(e);
+    return res.status(500).json({
+      msg: "Internal server error!!"
+    })
+  }
+}

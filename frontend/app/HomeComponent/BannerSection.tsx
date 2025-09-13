@@ -1,8 +1,10 @@
+
 import { CardComponent } from "../components/Banner/Card";
 import MoreCard from "../components/Banner/MoreCard";
 
 
 export default function BannerSection() {
+  
   return (
     <div className="pt-20 lg:flex">
       <div className="
@@ -13,7 +15,7 @@ export default function BannerSection() {
         mb-6 lg:mb-0
       ">
         <div>
-          <div className="flex">
+          <div className="flex lg:flex-col xl:flex">
             <p className="text-3xl md:text-4xl lg:text-5xl font-bold pb-2 pr-3 text-blue-900">
               Unlock
             </p>

@@ -9,9 +9,13 @@
   },
   "dependencies": {
     "@tailwindcss/line-clamp": "^0.4.4",
+    "@types/axios": "^0.9.36",
     "@types/dotenv": "^6.1.1",
     "@types/node-fetch": "^2.6.13",
     "@types/puppeteer": "^5.4.7",
+    "@types/react-toastify": "^4.0.2",
+    "@types/recoil": "^0.0.1",
+    "axios": "^1.11.0",
     "cheerio": "^1.1.2",
     "dotenv": "^17.2.1",
     "lucide-react": "^0.542.0",
@@ -22,6 +26,8 @@
     "react-dom": "19.1.0",
     "react-icons": "^5.5.0",
     "react-slick": "^0.31.0",
+    "react-toastify": "^11.0.5",
+    "recoil": "^0.7.7",
     "rss-parser": "^3.13.0",
     "slick-carousel": "^1.8.1"
   },

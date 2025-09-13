@@ -4,7 +4,7 @@ export const authorizeRole = (...allowedRoutes: string[])=>{
     return ((req: Request, res: Response, next: NextFunction)=>{
         if(!allowedRoutes.includes(req.user.role)){
             console.log(req.user.role);
-            res.status(403).json({
+            return res.status(403).json({
                 msg: "Access denied"
             })
         }

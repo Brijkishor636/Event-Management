@@ -1,19 +1,34 @@
-import { useEffect, useState } from "react"
+"use client";
 
-export default function Practice_jobs(){
+import { useContext } from "react";
+import UserContext from "../provider/userContext";
 
-    const [jobs, setJobs] = useState([]);
+export default function Practice_jobs() {
+  const context = useContext(UserContext);
 
-    useEffect(()=>{
-        async function fetchData(){
-            const response = await fetch("api/competitions");
-            const data = response.json();
-            console.log(data);
-        }
-        fetchData();
-    }, [])
+  if (!context) {
+    return <div>Loading...</div>;
+  }
 
-    return <div>
-        
+  return (
+    <div className="bg-gradient-to-bl from-gray-100 to-pink-50">
+      <div className="text-center p-4">
+        <div>{context.user?.name ?? "No user logged in"}</div>
+      </div>
     </div>
+  );
 }
+
+
+
+
+// const [jobs, setJobs] = useState([]);
+
+    // useEffect(()=>{
+    //     async function fetchData(){
+    //         const response = await axios.get("http://localhost:3001/api/v1/admin/jobs");
+    //         const data = response.json();
+    //         console.log(data);
+    //     }
+    //     fetchData();
+    // }, [])

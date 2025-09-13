@@ -3,7 +3,7 @@ import express from "express"
 import { authorizeRole } from "../middlewares/roleMiddleware";
 import { PrismaClient } from "@prisma/client";
 import { verifyToken } from "../middlewares/authMiddleware";
-import { companySignin, companySignup, createCompetition, createinternship, createJob } from "../controllers/companyController";
+import { companySignin, companySignup, createCompetition, createinternship, createJob, getCompetitions, getInternships, getJobs } from "../controllers/companyController";
 
 
 const companyRouter = express.Router();
@@ -21,5 +21,9 @@ companyRouter.post("/createinternship", verifyToken, authorizeRole("COMPANY"), c
 companyRouter.post("/createcompetition", verifyToken, authorizeRole("COMPANY"), createCompetition);
 
 companyRouter.post("/createjobs", verifyToken, authorizeRole("COMPANY"), createJob);
+
+companyRouter.get("/internships", verifyToken, authorizeRole("COMPANY"), getInternships);
+companyRouter.get("/competitions", verifyToken, authorizeRole("COMPANY"), getCompetitions);
+companyRouter.get("/jobs", verifyToken, authorizeRole("COMPANY"), getJobs);
 
 export default companyRouter;

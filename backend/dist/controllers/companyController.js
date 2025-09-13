@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createJob = exports.createCompetition = exports.createinternship = exports.companySignin = exports.companySignup = void 0;
+exports.getJobs = exports.getCompetitions = exports.getInternships = exports.createJob = exports.createCompetition = exports.createinternship = exports.companySignin = exports.companySignup = void 0;
 const client_1 = require("@prisma/client");
 const zod_1 = __importDefault(require("zod"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
@@ -264,3 +264,72 @@ const createJob = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.createJob = createJob;
+const getInternships = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const companyId = req.user.companyId;
+        const internship = yield prisma.internship.findMany({
+            where: {
+                companyId: companyId
+            }
+        });
+        if (!internship) {
+            return res.status(500).json({
+                msg: "db connection error!!"
+            });
+        }
+        return res.status(200).json({ internship });
+    }
+    catch (e) {
+        console.log(e);
+        return res.status(500).json({
+            msg: "Internal server error!!"
+        });
+    }
+});
+exports.getInternships = getInternships;
+const getCompetitions = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const companyId = req.user.companyId;
+        const competition = yield prisma.competition.findMany({
+            where: {
+                companyId: companyId
+            }
+        });
+        if (!competition) {
+            return res.status(500).json({
+                msg: "db connection error!!"
+            });
+        }
+        return res.status(200).json({ competition });
+    }
+    catch (e) {
+        console.log(e);
+        return res.status(500).json({
+            msg: "Internal server error!!"
+        });
+    }
+});
+exports.getCompetitions = getCompetitions;
+const getJobs = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const companyId = req.user.companyId;
+        const job = yield prisma.job.findMany({
+            where: {
+                companyId: companyId
+            }
+        });
+        if (!job) {
+            return res.status(500).json({
+                msg: "db connection error!!"
+            });
+        }
+        return res.status(200).json({ job });
+    }
+    catch (e) {
+        console.log(e);
+        return res.status(500).json({
+            msg: "Internal server error!!"
+        });
+    }
+});
+exports.getJobs = getJobs;

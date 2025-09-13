@@ -8,11 +8,11 @@ dotenv.config();
 const adminRouter = express.Router();
 
 
-adminRouter.get("/internships", verifyToken, authorizeRole("ADMIN"), getInternship);
+adminRouter.get("/internships", verifyToken, authorizeRole("ADMIN", "COMPANY"), getInternship);
 
-adminRouter.get("/competitions", verifyToken, authorizeRole("ADMIN"), getCompetition);
+adminRouter.get("/competitions", verifyToken, authorizeRole("ADMIN", "COMPANY"), getCompetition);
 
-adminRouter.get("/jobs", verifyToken, authorizeRole("ADMIN"), getJobs);
+adminRouter.get("/jobs", verifyToken, authorizeRole("ADMIN", "COMPANY"), getJobs);
 
 
 

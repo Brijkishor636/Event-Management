@@ -4,6 +4,7 @@ import jwt, { Secret } from "jsonwebtoken";
 import z from "zod"
 import { Request, Response } from "express";
 
+
 const signupInput = z.object({
   username: z.string().email(),
   password: z.string().min(4),
@@ -68,16 +69,20 @@ export const signup = async (req: Request, res: Response) =>{
         }
     
         const token = jwt.sign({ userId: user.id, role: user.role }, secretKey, { expiresIn: "1h" });
-    
+        res.cookie("token", token, {
+        httpOnly: true,
+        path: '/'
+        })
+
         return res.status(201).json({
-          msg: "User created successfully",
-          token
+          msg: "User created successfully"
         });
       } catch (e) {
         console.error("Signup error:", e);
-        return res.status(500).json({
-          msg: "Internal server error"
-        });
+        if (e instanceof jwt.TokenExpiredError) {
+        return res.status(401).json({ msg: "Token expired, please login again" });
+        }
+        return res.status(500).json({ msg: "Internal server error!!" });
       }
 }
 
@@ -115,14 +120,18 @@ export const signin = async (req: Request, res:Response) =>{
       }
 
       const token = jwt.sign({ userId: userId, role: user.role }, secretKey, {expiresIn: "1h"});
+      res.cookie("token", token, {
+        httpOnly: true,
+        path: '/'
+      })
       return res.status(200).json({
-        msg: "Login successfully..",
-        token
+        msg: "Login successfully.."
       })
   }
   catch(e){
-    return res.status(500).json({
-      msg: "Internal server error!!"
-    })
+    if (e instanceof jwt.TokenExpiredError) {
+    return res.status(401).json({ msg: "Token expired, please login again" });
+    }
+    return res.status(500).json({ msg: "Internal server error!!" });
   }
 }

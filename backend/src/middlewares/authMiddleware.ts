@@ -10,10 +10,7 @@ declare global {
 }
 
 export const verifyToken = (req: Request, res: Response, next: NextFunction) =>{
-    let token;
-    let authHeader = req.headers.authorization || req.headers.Authorization
-    if (typeof authHeader === "string" && authHeader.startsWith("Bearer")) {
-        token = authHeader.split(" ")[1];
+    let token = req.cookies.token
         // console.log(token);
         if(!token){
             return res.status(401).json({
@@ -44,10 +41,4 @@ export const verifyToken = (req: Request, res: Response, next: NextFunction) =>{
                 msg: "Internal server error!!"
             })
         }
-    }
-    else{
-        return res.status(401).json({
-            msg: "no token, access denied"
-        })
-    }
 }

@@ -15,4 +15,7 @@ companyRouter.post("/signin", companyController_1.companySignin);
 companyRouter.post("/createinternship", authMiddleware_1.verifyToken, (0, roleMiddleware_1.authorizeRole)("COMPANY"), companyController_1.createinternship);
 companyRouter.post("/createcompetition", authMiddleware_1.verifyToken, (0, roleMiddleware_1.authorizeRole)("COMPANY"), companyController_1.createCompetition);
 companyRouter.post("/createjobs", authMiddleware_1.verifyToken, (0, roleMiddleware_1.authorizeRole)("COMPANY"), companyController_1.createJob);
+companyRouter.get("/internships", authMiddleware_1.verifyToken, (0, roleMiddleware_1.authorizeRole)("COMPANY"), companyController_1.getInternships);
+companyRouter.get("/competitions", authMiddleware_1.verifyToken, (0, roleMiddleware_1.authorizeRole)("COMPANY"), companyController_1.getCompetitions);
+companyRouter.get("/jobs", authMiddleware_1.verifyToken, (0, roleMiddleware_1.authorizeRole)("COMPANY"), companyController_1.getJobs);
 exports.default = companyRouter;

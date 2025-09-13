@@ -73,6 +73,10 @@ const signup = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             return res.status(500).json({ msg: "JWT secret is not configured" });
         }
         const token = jsonwebtoken_1.default.sign({ userId: user.id, role: user.role }, secretKey, { expiresIn: "1h" });
+        res.cookie("token", token, {
+            httpOnly: true,
+            path: '/'
+        });
         return res.status(201).json({
             msg: "User created successfully",
             token
@@ -80,9 +84,10 @@ const signup = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
     catch (e) {
         console.error("Signup error:", e);
-        return res.status(500).json({
-            msg: "Internal server error"
-        });
+        if (e instanceof jsonwebtoken_1.default.TokenExpiredError) {
+            return res.status(401).json({ msg: "Token expired, please login again" });
+        }
+        return res.status(500).json({ msg: "Internal server error!!" });
     }
 });
 exports.signup = signup;
@@ -117,15 +122,20 @@ const signin = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             return res.status(500).json({ msg: "JWT secret is not configured" });
         }
         const token = jsonwebtoken_1.default.sign({ userId: userId, role: user.role }, secretKey, { expiresIn: "1h" });
+        res.cookie("token", token, {
+            httpOnly: true,
+            path: '/'
+        });
         return res.status(200).json({
             msg: "Login successfully..",
             token
         });
     }
     catch (e) {
-        return res.status(500).json({
-            msg: "Internal server error!!"
-        });
+        if (e instanceof jsonwebtoken_1.default.TokenExpiredError) {
+            return res.status(401).json({ msg: "Token expired, please login again" });
+        }
+        return res.status(500).json({ msg: "Internal server error!!" });
     }
 });
 exports.signin = signin;

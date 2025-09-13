@@ -5,7 +5,7 @@ const authorizeRole = (...allowedRoutes) => {
     return ((req, res, next) => {
         if (!allowedRoutes.includes(req.user.role)) {
             console.log(req.user.role);
-            res.status(403).json({
+            return res.status(403).json({
                 msg: "Access denied"
             });
         }

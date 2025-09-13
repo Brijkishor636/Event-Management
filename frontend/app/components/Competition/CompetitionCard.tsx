@@ -28,19 +28,28 @@ export default function CompetitionCard({ title, description, apiEndpoint }: Mai
     { src: comImg2, logo: logoImg1, title: "Code Quest", subtitle: "IIT Bombay", views: "4,300", daysLeft: "3 days left" },
     { src: comImg3, logo: logoImg1, title: "Hackathon 2025", subtitle: "NIT Trichy", views: "9,122", daysLeft: "10 days left" },
     { src: comImg4, logo: logoImg1, title: "Design Wars", subtitle: "IIIT Delhi", views: "2,511", daysLeft: "1 day left" },
+    { src: comImg4, logo: logoImg1, title: "Design Wars", subtitle: "IIIT Delhi", views: "2,511", daysLeft: "1 day left" },
+    { src: comImg4, logo: logoImg1, title: "Design Wars", subtitle: "IIIT Delhi", views: "2,511", daysLeft: "1 day left" },
+    { src: comImg4, logo: logoImg1, title: "Design Wars", subtitle: "IIIT Delhi", views: "2,511", daysLeft: "1 day left" },
+    { src: comImg4, logo: logoImg1, title: "Design Wars", subtitle: "IIIT Delhi", views: "2,511", daysLeft: "1 day left" },
   ];
 
   useEffect(() => {
-    if (!apiEndpoint) return setCards(staticCards);
+  if (!apiEndpoint) return setCards(staticCards);
 
-    fetch(apiEndpoint.startsWith("http") ? apiEndpoint : `${window.location.origin}${apiEndpoint}`)
-      .then((res) => res.json())
-      .then((data) => {
-        const list = Array.isArray(data) ? data : data.data || [];
-        setCards(list.length > 0 ? list : staticCards);
-      })
-      .catch(() => setCards(staticCards));
-  }, [apiEndpoint]);
+  fetch(apiEndpoint, { credentials: "include" })
+    .then((res) => res.json())
+    .then((data) => {
+      const list = Array.isArray(data)
+        ? data
+        : Array.isArray(data.jobs)
+        ? data.jobs
+        : data.data || [];
+
+      setCards(list.length > 0 ? list : staticCards);
+    })
+    .catch(() => setCards(staticCards));
+}, [apiEndpoint]);
 
   // Custom arrow components
   const NextArrow = (props: any) => {
@@ -77,7 +86,6 @@ export default function CompetitionCard({ title, description, apiEndpoint }: Mai
     autoplay: true,
     autoplaySpeed: 4000,
     arrows: true,
-    dots: true,
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
     responsive: [
@@ -105,7 +113,7 @@ export default function CompetitionCard({ title, description, apiEndpoint }: Mai
                 title={card.job_title || card.title}
                 subtitle={card.job_description || card.subtitle}
                 views={card.job_views || card.views || "1,000"}
-                daysLeft={card.job_posted_at || card.daysLeft}
+                daysLeft={card.endsOn || card.daysLeft}
               />
             </div>
           ))}
@@ -121,7 +129,7 @@ export default function CompetitionCard({ title, description, apiEndpoint }: Mai
                 title={card.job_title || card.title}
                 subtitle={card.job_description || card.subtitle}
                 views={card.job_views || card.views || "1,000"}
-                daysLeft={card.job_posted_at || card.daysLeft}
+                daysLeft={card.endsOn || "10"}
               />
             </div>
           ))}
