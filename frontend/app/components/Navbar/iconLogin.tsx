@@ -54,10 +54,10 @@ export default function IconLogin({
             className="w-6 h-6 text-gray-500 hover:text-red-500 cursor-pointer ml-auto transition hover:bg-indigo-50 hover:rounded-md"
           />
           <div className="flex flex-col mt-2">
-            <Link href="/login" className="px-3 py-2 text-gray-700 font-medium rounded-lg hover:bg-indigo-50 hover:text-indigo-600 transition">
+            <Link href="/pages/login" className="px-3 py-2 text-gray-700 font-medium rounded-lg hover:bg-indigo-50 hover:text-indigo-600 transition">
               Login
             </Link>
-            <Link href="/signup" className="px-3 py-2 text-gray-700 font-medium rounded-lg hover:bg-emerald-50 hover:text-emerald-600 transition">
+            <Link href="/pages/signup" className="px-3 py-2 text-gray-700 font-medium rounded-lg hover:bg-emerald-50 hover:text-emerald-600 transition">
               Signup
             </Link>
           </div>

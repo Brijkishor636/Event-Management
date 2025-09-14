@@ -19,11 +19,12 @@ export interface User {
 
 export default function UserProvider({ children }: PropsWithChildren) {
   const [user, setUser] = useState<User | undefined>(undefined);
+  const url = process.env.NEXT_PUBLIC_BACKEND_URL;
 
   useEffect(() => {
   async function fetchData() {
     try {
-      const response = await axios.get("http://localhost:3001/api/v1/user/current", {
+      const response = await axios.get(`${url}/api/v1/user/current`, {
         withCredentials: true
       });
       //@ts-ignore

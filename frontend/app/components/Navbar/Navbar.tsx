@@ -40,8 +40,8 @@ export const Navbar = () =>{
                     </div>
                     <div className="flex justify-center items-center pl-3">
                         <button onClick={handleClick}><IconLogin open={open} setOpen={setOpen}/></button>
-                        <Link href={"/login"} className="px-5 h-full py-2 rounded-full bg-blue-600 cursor-pointer hover:bg-blue-800 text-sm text-white transition-colors duration-400 ease-in-out hidden sm:block xl:hidden ">Login</Link>
-                        <Link href={"/signup"} className="px-5 h-full py-2 rounded-full bg-blue-600 cursor-pointer ml-5 hover:bg-blue-800 text-sm text-white transition-colors duration-400 ease-in-out hidden sm:block xl:hidden">Signup</Link>
+                        <Link href={"/pages/login"} className="px-5 h-full py-2 rounded-full bg-blue-600 cursor-pointer hover:bg-blue-800 text-sm text-white transition-colors duration-400 ease-in-out hidden sm:block xl:hidden ">Login</Link>
+                        <Link href={"/pages/signup"} className="px-5 h-full py-2 rounded-full bg-blue-600 cursor-pointer ml-5 hover:bg-blue-800 text-sm text-white transition-colors duration-400 ease-in-out hidden sm:block xl:hidden">Signup</Link>
                     </div>
                 </div>
             </div>
@@ -49,10 +49,10 @@ export const Navbar = () =>{
         </div>
         
         <div className="block sm:hidden bg-blue-50 px-6 py-8 rounded-b-3xl">
-        <h2 className="text-xl font-semibold text-gray-800">
+        <h2 className="text-lg font-semibold text-gray-800">
           Hii,
         </h2>
-        <p className="text-2xl font-bold text-gray-900 mb-4">
+        <p className="text-xl font-bold text-gray-900 mb-4">
           Unlock Your Career
         </p>
         <Searchbar />

@@ -78,8 +78,7 @@ const signup = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             path: '/'
         });
         return res.status(201).json({
-            msg: "User created successfully",
-            token
+            msg: "User created successfully"
         });
     }
     catch (e) {
@@ -127,8 +126,7 @@ const signin = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             path: '/'
         });
         return res.status(200).json({
-            msg: "Login successfully..",
-            token
+            msg: "Login successfully.."
         });
     }
     catch (e) {
