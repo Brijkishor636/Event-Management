@@ -5,6 +5,7 @@ interface InputProps {
   label: string;
   placeholder: string;
   type: string;
+  required?: boolean;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -13,6 +14,7 @@ export const InputBox = ({
   type,
   placeholder,
   onChange,
+  required = false,
 }: InputProps) => {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -20,8 +22,9 @@ export const InputBox = ({
 
   return (
     <div className="pb-4">
-      <div className="text-left text-sm font-semibold text-gray-800">
+      <div className="text-left flex text-sm font-semibold text-gray-200">
         {label}
+        {required && <span className="text-red-500">*</span>}
       </div>
 
       <div className="relative">
@@ -29,14 +32,14 @@ export const InputBox = ({
           onChange={onChange}
           type={isPassword && showPassword ? "text" : type}
           placeholder={placeholder}
-          className="px-2 py-2 border border-gray-500 w-full rounded-lg outline-none hover:border-gray-800 text-gray-700 pr-10"
+          className="px-2 py-2 border border-gray-500 w-full rounded-lg outline-none hover:border-gray-400 text-gray-200 pr-10"
         />
 
         {isPassword && (
           <button
             type="button"
             onClick={() => setShowPassword((prev) => !prev)}
-            className="absolute inset-y-0 right-2 flex items-center text-gray-500 hover:text-gray-700"
+            className="absolute inset-y-0 right-2 flex items-center text-gray-400 hover:text-gray-200 cursor-pointer"
           >
             {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
           </button>

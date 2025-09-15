@@ -10,7 +10,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useContext, useState } from "react";
 import { toast } from "react-toastify";
-import imgBackground from "../../../assets/login/welcome_bg.jpg"
+import imgBackground from "../../../assets/login/img_bg4.jpg"
 
 export default function LoginPage() {
   const context = useContext(UserContext);
@@ -57,21 +57,21 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex w-full min-h-screen">
-      <div className="relative w-1/2 hidden lg:flex items-center justify-center text-2xl font-bold text-white">
-        <Image
+    <div className="relative flex w-full min-h-screen bg-gradient-to-br from-black/30 to-black/10">
+      <Image
           src={imgBackground}
           alt="Welcome Background"
           fill
           priority
-          className="object-cover -z-10 opacity-85"
+          className="object-cover -z-10 opacity-100 backdrop-blur-sm"
         />
-        <div className="relative z-10 text-center px-6 text-2xl text-white">
+      <div className="relative w-1/2 hidden lg:flex items-center justify-center text-2xl font-bold text-white bg-gradient-to-br from-black/40 to-black/20">
+        <div className="relative z-10 text-center px-6 text-3xl text-white">
           Hi there, Welcome to Event Manager
         </div>
       </div>
-      <div className="flex justify-center items-start h-screen sm:items-center pt-65 sm:pt-0 w-full lg:w-1/2 bg-pink-50">
-      <div className="w-80 h-max border p-5 bg-gradient-to-br from-gray-50 to-pink-50 border-gray-400 rounded-xl">
+      <div className="flex justify-center items-start h-screen sm:items-center pt-65 sm:pt-0 w-full lg:w-1/2">
+      <div className="w-80 h-max border p-5 border-gray-400 rounded-xl backdrop-blur-sm bg-gradient-to-br from-black/30 to-black/10">
         <form action="#!" onSubmit={doLogin}>
         <div className="text-center">
           <Heading label="Login"/>
@@ -80,13 +80,13 @@ export default function LoginPage() {
               ...loginData,
               username: e.target.value
             })
-          }} label="Username" placeholder="abc@gmail.com" type="text"/>
+          }} label="Username" placeholder="abc@gmail.com" type="text" required />
           <InputBox onChange={(e)=>{
             setLoginData({
               ...loginData,
               password: e.target.value
             })
-          }} label="Password" placeholder="password" type="password"/>
+          }} label="Password" placeholder="password" type="password" required/>
           <Button name="Signin"/>
           <BottomWarming label="New to Event Manager?" to="/pages/signup" buttonText="Signup"/>
         </div>

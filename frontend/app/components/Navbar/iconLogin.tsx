@@ -46,7 +46,7 @@ export default function IconLogin({
       ) : (
         <div
           ref={menuRef}
-          className="absolute -right-2 mt-6 w-44 bg-gradient-to-bl from-pink-100 to-gray-50 rounded-lg shadow-xl border border-gray-100 p-4 z-50 transition-all"
+          className="absolute -right-12 mt-6 w-70 bg-gradient-to-t from-blue-300 to-gray-200 rounded-lg shadow-xl border border-gray-100 p-6 z-50 transition-all"
           onMouseLeave={() => setOpen(false)}
         >
           <RxCross2

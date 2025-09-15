@@ -1,6 +1,6 @@
 
 export const Heading = ({label}: {label: string}) =>{
-    return <div className="pb-6 font-bold text-3xl">
+    return <div className="pb-6 font-bold text-3xl text-white">
         {label}
     </div>
 }
