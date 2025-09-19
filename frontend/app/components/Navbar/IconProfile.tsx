@@ -1,8 +1,9 @@
 import Link from "next/link";
-import { RxCross2 } from "react-icons/rx";
 import { useRef, useEffect } from "react";
+import { CgProfile } from "react-icons/cg";
+import { RxCross2 } from "react-icons/rx";
 
-export default function IconLogin({
+export default function IconProfile({
   open,
   setOpen,
 }: {
@@ -28,21 +29,10 @@ export default function IconLogin({
   return (
     <div className="relative">
        {!open ? (
-      <svg
-        onClick={() => setOpen(true)}
-        className="w-6 h-6 text-gray-800 cursor-pointer block sm:hidden md:hidden lg:hidden xl:block"
-        aria-hidden="true"
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-      >
-        <path
-          stroke="currentColor"
-          strokeLinecap="round"
-          strokeWidth="2"
-          d="M5 7h14M5 12h14M5 17h14"
-        />
-      </svg>
+        <CgProfile
+            onClick={() => setOpen(true)}
+            className="text-3xl text-blue-800 bg-gray-200 hover:text-blue-900 rounded-full"
+          />
       ) : (
         <div
           ref={menuRef}
@@ -53,17 +43,16 @@ export default function IconLogin({
               shadow-xl border border-gray-100 p-6 z-50 transition-all"
           onMouseLeave={() => setOpen(false)}
         >
-          <RxCross2
-            onClick={() => setOpen(false)}
-            className="w-6 h-6 text-gray-500 hover:text-red-500 cursor-pointer ml-auto transition hover:bg-indigo-50 hover:rounded-md"
-          />
+            <RxCross2 onClick={() => setOpen(false)}
+                        className="w-6 h-6 text-gray-500 hover:text-red-500 cursor-pointer ml-auto transition hover:bg-gray-200 hover:rounded-md"
+                    />
           <div className="flex flex-col mt-4">
-            <Link href="/pages/login" className="px-3 py-2 text-gray-700 font-medium rounded-lg hover:text-indigo-600 transition hover:bg-gray-300 font-bold">
-              Login
+            <Link href="/pages/profile" className="px-3 py-2 text-gray-700 font-medium rounded-lg hover:text-indigo-600 transition hover:bg-gray-300">
+              My Profile
             </Link>
-            <Link href="/pages/signup" className="px-3 py-2 text-gray-700 font-medium rounded-lg hover:text-emerald-600 transition hover:bg-gray-300">
-              Signup
-            </Link>
+            <button className="cursor-pointer px-3 py-2 text-gray-700 font-medium rounded-lg hover:text-emerald-600 transition hover:bg-gray-300">
+              Logout
+            </button>
           </div>
         </div>
       )}

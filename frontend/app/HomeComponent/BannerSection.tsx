@@ -1,4 +1,5 @@
 
+import Link from "next/link";
 import { CardComponent } from "../components/Banner/Card";
 import MoreCard from "../components/Banner/MoreCard";
 
@@ -23,10 +24,11 @@ export default function BannerSection() {
               Your Career
             </span>
           </div>
-          <p className="text-gray-600 text-sm md:text-base">
+          <p className="text-gray-600 text-sm md:text-base mb-6">
             Explore opportunities from across the globe to grow, showcase
             skills, gain CV points & get hired by your dream company
           </p>
+          <Link href={"/pages/signup"} className="bg-blue-800 text-white font-bold px-5 py-2 rounded-xl cursor-pointer hover:bg-blue-900 transition duration-400">Get Started</Link>
         </div>
       </div>
 
