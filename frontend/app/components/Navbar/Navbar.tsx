@@ -9,7 +9,7 @@ import Profile from "./Profile";
 export const Navbar = () =>{
 
 
-    return <div className="fixed top-0 left-0 w-full z-50 bg-white shadow-md rounded-b-3xl sm:rounded-none">
+    return <div className="sticky top-0 left-0 w-full z-50 bg-white shadow-md rounded-b-3xl sm:rounded-none">
         <div className="flex justify-between border-b border-gray-200 p-3 px-12">
             <div className="flex">
                 <Link href={"/"} className="flex justify-center items-center pl-5 text-gray-800 font-bold text-xl hover:text-blue-500 transition duration-300 ease-in-out hover:cursor-pointer">

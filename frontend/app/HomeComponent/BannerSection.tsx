@@ -7,7 +7,7 @@ import MoreCard from "../components/Banner/MoreCard";
 export default function BannerSection() {
   
   return (
-    <div className="pt-20 lg:flex">
+    <div className="pt-10 lg:flex">
       <div className="
         hidden sm:block  
         w-full lg:w-1/2         
@@ -33,7 +33,7 @@ export default function BannerSection() {
       </div>
 
       
-      <div className="w-full lg:w-1/2 pt-50 p-2 sm:p-4 xl:px-15 md:px-20 lg:px-4">
+      <div className="w-full lg:w-1/2 p-2 sm:p-4 xl:px-15 md:px-20 lg:px-4">
         <div className="grid grid-cols-2 sm:grid-cols-2 gap-0 sm:gap-2">
           <CardComponent
             title="Internships"

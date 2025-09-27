@@ -20,7 +20,7 @@ type MainCardProps = {
   apiEndpoint?: string;
 };
 
-export default function CompetitionCard({ title, description, apiEndpoint }: MainCardProps) {
+export default function JobCard({ title, description, apiEndpoint }: MainCardProps) {
   const [cards, setCards] = useState<any[]>([]);
 
   const staticCards = [
@@ -42,8 +42,8 @@ export default function CompetitionCard({ title, description, apiEndpoint }: Mai
     .then((data) => {
       const list = Array.isArray(data)
         ? data
-        : Array.isArray(data.competitions)
-        ? data.competitions
+        : Array.isArray(data.jobs)
+        ? data.jobs
         : data.data || [];
 
       setCards(list.length > 0 ? list : staticCards);
